@@ -56,6 +56,7 @@ static void nfs3_program_3(struct svc_req *rqstp, register SVCXPRT * transp)
       local = (char *(*)(char *, struct svc_req *)) nfsproc3_null_3_svc;
       break;
     default:
+      warn("%s : noproc", __func__);
       svcerr_noproc(transp);
       return;
     }

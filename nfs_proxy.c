@@ -34,15 +34,16 @@ static SVCXPRT *create_tcp_transport(unsigned int port)
 
 int main()
 {
-  SVCXPRT *xprt;
+  SVCXPRT *xprt_nfsd, *xprt_mountd;
 
   rpc_mountd_unregister();
   rpc_nfsd_unregister();
 
-  xprt = create_tcp_transport(2049);
+  xprt_nfs = create_tcp_transport(2049);
+  xprt_mountd = create_tcp_transport(2048);
 
-  rpc_nfsd_register(xprt);
-  rpc_mountd_register(xprt);
+  rpc_nfsd_register(xprt_nfs);
+  rpc_mountd_register(xprt_mountd);
 
   svc_run();
 }
