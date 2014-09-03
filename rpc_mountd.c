@@ -24,12 +24,13 @@ static void mountprog_3(struct svc_req *rqstp, register SVCXPRT * transp)
   char *(*local) (char *, struct svc_req *);
 
   union {
-    int unused;
+    int unused[128];
     /* dirpath mountproc_mnt_3_arg; */
     /* dirpath mountproc_umnt_3_arg; */
   } argument;
 
   printf("%s : rqstp->rq_proc %lu\n", __func__, rqstp->rq_proc);
+  warn("test");
   switch (rqstp->rq_proc) {
   case MOUNTPROC_NULL:
     _xdr_argument = (xdrproc_t) xdr_void;
