@@ -7,6 +7,9 @@
 #define MOUNTPROC_NULL 0
 #define MOUNTPROC_MNT 1
 
+#define MNTPATHLEN 1024
+#define FHSIZE3 64
+
 typedef struct {
   u_int fhandle3_len;
   char *fhandle3_val;

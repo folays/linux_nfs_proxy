@@ -5,6 +5,15 @@
 
 #include "nfs_proxy.h"
 #include "rpc_mountd.h"
+#include "xdr.h"
+
+bool_t xdr_dirpath(XDR * xdrs, dirpath * objp)
+{
+  if (!xdr_string(xdrs, objp, MNTPATHLEN))
+    return FALSE;
+  return TRUE;
+}
+
 
 mountres3 *mountproc_mnt_3_svc(dirpath *argp, struct svc_req *rqstp)
 {
