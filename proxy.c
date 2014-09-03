@@ -61,10 +61,12 @@ void proxy_mount(int s)
   if (!clnt)
     errx(1, "mnt_openclnt");
 
-  /* return */ clnt_call(clnt, MOUNTPROC_MNT,
+  enum clnt_stat stat = clnt_call(clnt, MOUNTPROC_MNT,
 			 (xdrproc_t) xdr_dirpath, (caddr_t) mnt3arg,
 			 (xdrproc_t) xdr_mountres3, (caddr_t) mnt3res,
 			 TIMEOUT);
+  printf("%s : clnt_call MOUNTPROC_MNT RPC_SUCCESS ? -> %d\n", __func__,
+	 stat == RPC_SUCCESS ? 1 : 0);
 }
 
 void proxy_()

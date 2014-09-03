@@ -2,7 +2,7 @@ NAME	= nfs_proxy
 CC	= gcc
 RM	= rm -f
 
-CFLAGS	= $(pkg-config --cflags libtirpc)
+CFLAGS	= $(pkg-config --cflags libtirpc) -g -ggdb
 LIBS	= $(pkg-config --libs libtirpc)
 
 SRC	= nfs_proxy.c rpc_nfsd.c rpc_mountd.c xdr.c proxy.c
