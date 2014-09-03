@@ -38,6 +38,7 @@ void proxy_mount(int s)
   struct pmap *mnt_pmap = &mnt_server.pmap;
   memset(mnt_pmap, '\0', sizeof(*mnt_pmap));
   mnt_pmap->pm_prog = MOUNTPROG;
+  mnt_pmap->pm_vers = 3;
 
   clnt_addr_t nfs_server = {
     .hostname = &hostname
@@ -45,9 +46,10 @@ void proxy_mount(int s)
   struct pmap *nfs_pmap = &nfs_server.pmap;
   memset(nfs_pmap, '\0', sizeof(*nfs_pmap));
   nfs_pmap->pm_prog = NFS3_PROGRAM;
+  nfs_pmap->pm_vers = 3;
 
   mnt_server.saddr.sin_family = AF_INET;
-  mnt_server.saddr.sin_port = htons(2049);
+  mnt_server.saddr.sin_port = htons(54895);
   mnt_server.saddr.sin_addr.s_addr = inet_addr("10.42.2.99");
 
   {
@@ -88,7 +90,5 @@ void proxy_mount(int s)
 
 void proxy_()
 {
-
-  /* proxy_mount(s); */
   proxy_mount(999);
 }
