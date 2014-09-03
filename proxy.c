@@ -26,7 +26,8 @@ typedef struct {
 void proxy_mount(int s)
 {
   CLIENT *clnt;
-  dirpath *mnt3arg;
+  char *dirname = "/bli";
+  dirpath *mnt3arg = &dirname;
   mountres3 *mnt3res;
 
   char *hostname, *mounthost = NULL;
@@ -49,7 +50,21 @@ void proxy_mount(int s)
   mnt_server.saddr.sin_port = htons(2049);
   mnt_server.saddr.sin_addr.s_addr = inet_addr("10.42.2.99");
 
-  char *dirname = "/bli";
+  {
+    struct sockaddr_in sin;
+
+    sin.sin_family = AF_INET;
+    sin.sin_port = 0;
+    sin.sin_addr.s_addr = INADDR_ANY;
+
+    s = socket(AF_INET, SOCK_STREAM, 0);
+    if (bind(s, (struct sockaddr *)&sin, sizeof(struct sockaddr)))
+      err(1, "bind");
+
+    if (connect(s, (struct sockaddr *)&mnt_server.saddr, sizeof(mnt_server.saddr)))
+      err(1, "connect");
+  }
+
   mountres3 mntres;
 
   {
@@ -67,26 +82,12 @@ void proxy_mount(int s)
 			 TIMEOUT);
   printf("%s : clnt_call MOUNTPROC_MNT RPC_SUCCESS ? -> %d\n", __func__,
 	 stat == RPC_SUCCESS ? 1 : 0);
+
+  sleep(10);
 }
 
 void proxy_()
 {
-  /* struct sockaddr_in sin; */
-
-  /* sin.sin_family = AF_INET; */
-  /* sin.sin_port = 0; */
-  /* sin.sin_addr.s_addr = INADDR_ANY; */
-
-  /* int s = socket(AF_INET, SOCK_STREAM, 0); */
-  /* if (bind(s, (struct sockaddr *)&sin, sizeof(struct sockaddr))) */
-  /*   err(1, "bind"); */
-
-  /* sin.sin_family = AF_INET; */
-  /* sin.sin_port = htons(2049); */
-  /* sin.sin_addr.s_addr = inet_addr("10.42.2.99"); */
-
-  /* if (connect(s, (struct sockaddr *)&sin, sizeof(sin))) */
-  /*   err(1, "connect"); */
 
   /* proxy_mount(s); */
   proxy_mount(999);
