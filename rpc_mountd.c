@@ -4,11 +4,16 @@
 #include <rpc/rpc.h>
 
 #include "nfs_proxy.h"
+#include "rpc_mountd.h"
 
-#define MOUNTPROG 100005
-#define MOUNTVERS3 3
+mountres3 *mountproc_mnt_3_svc(dirpath *argp, struct svc_req *rqstp)
+{
+  static mountres3 result;
+  printf("%s : argp %s\n", __func__, *argp);
 
-#define MOUNTPROC_NULL 0
+  result.fhs_status = MNT3ERR_NAMETOOLONG;
+  return &result;
+}
 
 void *mountproc_null_3_svc(U(void *argp), U(struct svc_req *rqstp))
 {
@@ -25,29 +30,34 @@ static void mountprog_3(struct svc_req *rqstp, register SVCXPRT * transp)
 
   union {
     int unused[128];
-    /* dirpath mountproc_mnt_3_arg; */
+    dirpath mountproc_mnt_3_arg;
     /* dirpath mountproc_umnt_3_arg; */
   } argument;
 
   printf("%s : rqstp->rq_proc %lu\n", __func__, rqstp->rq_proc);
-  warn("test");
   switch (rqstp->rq_proc) {
   case MOUNTPROC_NULL:
     _xdr_argument = (xdrproc_t) xdr_void;
     _xdr_result = (xdrproc_t) xdr_void;
     local = (char *(*)(char *, struct svc_req *)) mountproc_null_3_svc;
     break;
+  case MOUNTPROC_MNT:
+    _xdr_argument = (xdrproc_t) xdr_dirpath;
+    _xdr_result = (xdrproc_t) xdr_mountres3;
+    local = (char *(*)(char *, struct svc_req *)) mountproc_mnt_3_svc;
+    break;
   default:
-    warn("%s : noproc", __func__);
+    warnx("%s : noproc", __func__);
     svcerr_noproc(transp);
     return;
+  }
 
-    memset((char *) &argument, 0, sizeof(argument));
-    if (!svc_getargs(transp, (xdrproc_t) _xdr_argument, (caddr_t) & argument)) {
-      svcerr_decode(transp);
-      return;
-    }
-    result = (*local) ((char *) &argument, rqstp);
+  memset((char *) &argument, 0, sizeof(argument));
+  if (!svc_getargs(transp, (xdrproc_t) _xdr_argument, (caddr_t) & argument)) {
+    svcerr_decode(transp);
+    return;
+  }
+  result = (*local) ((char *) &argument, rqstp);
     if (result != NULL &&
         !svc_sendreply(transp, (xdrproc_t) _xdr_result, result)) {
       svcerr_systemerr(transp);
@@ -57,7 +67,6 @@ static void mountprog_3(struct svc_req *rqstp, register SVCXPRT * transp)
         (transp, (xdrproc_t) _xdr_argument, (caddr_t) & argument)) {
       warn("unable to free XDR arguments");
     }
-  }
 }
 
 void rpc_mountd_unregister()
