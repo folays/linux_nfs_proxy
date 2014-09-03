@@ -5,7 +5,7 @@ RM	= rm -f
 CFLAGS	= $(pkg-config --cflags libtirpc)
 LIBS	= $(pkg-config --libs libtirpc)
 
-SRC	= nfs_proxy.c rpc_nfsd.c rpc_mountd.c
+SRC	= nfs_proxy.c rpc_nfsd.c rpc_mountd.c xdr.c
 OBJ	= $(SRC:.c=.o)
 
 all	: $(NAME)
