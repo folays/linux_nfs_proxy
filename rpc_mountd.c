@@ -14,6 +14,14 @@ mountres3 *mountproc_mnt_3_svc(dirpath *argp, struct svc_req *rqstp)
 
   proxy_();
 
+  /* ok, here we should:
+   * - return the same MOUNTPROC_MNT reply got from successfull proxy_() (the fhandle etc... ?)
+   * - we will received one or two rpc NULL call on the other daemon (nfsd)
+   * - we will received one rpc FSINFO call on the other daemon (nfsd) with the fhandle
+   * `- we should forward that immediatelly to the proxied nfsd
+   *  - we should associate the requested filehandle / tcp connection to the previous mountd request
+   */
+
   result.fhs_status = MNT3ERR_NAMETOOLONG;
   return &result;
 }
