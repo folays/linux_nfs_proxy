@@ -20,6 +20,8 @@ mountres3 *mountproc_mnt_3_svc(dirpath *argp, struct svc_req *rqstp)
   static mountres3 result;
   printf("%s : argp %s\n", __func__, *argp);
 
+  proxy_();
+
   result.fhs_status = MNT3ERR_NAMETOOLONG;
   return &result;
 }
