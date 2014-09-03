@@ -4,9 +4,7 @@
 #include <rpc/rpc.h>
 
 #include "nfs_proxy.h"
-
-#define NFS3_PROGRAM 100003
-#define NFS_V3 3
+#include "rpc_nfsd.h"
 
 #define NFSPROC3_NULL 0
 

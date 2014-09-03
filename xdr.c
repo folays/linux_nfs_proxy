@@ -7,6 +7,13 @@
 #include "rpc_mountd.h"
 #include "xdr.h"
 
+bool_t xdr_dirpath(XDR * xdrs, dirpath * objp)
+{
+  if (!xdr_string(xdrs, objp, MNTPATHLEN))
+    return FALSE;
+  return TRUE;
+}
+
 bool_t xdr_fhandle3(XDR * xdrs, fhandle3 * objp)
 {
   if (!xdr_bytes
