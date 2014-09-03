@@ -86,6 +86,7 @@ void rpc_nfsd_unregister()
 
 void rpc_nfsd_register(SVCXPRT *xprt)
 {
+  pmap_unset(NFS3_PROGRAM, NFS_V3);
   if (!svc_register(xprt, NFS3_PROGRAM, NFS_V3, nfs3_program_3, IPPROTO_TCP))
-    err(1, "svc_register #2");
+    err(1, "svc_register nfsd");
 }

@@ -66,6 +66,7 @@ void rpc_mountd_unregister()
 
 void rpc_mountd_register(SVCXPRT *xprt)
 {
+  pmap_unset(MOUNTPROG, MOUNTVERS3);
   if (!svc_register(xprt, MOUNTPROG, MOUNTVERS3, mountprog_3, IPPROTO_TCP))
-    err(1, "svc_register #2");
+    err(1, "svc_register mountd");
 }

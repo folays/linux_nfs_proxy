@@ -36,14 +36,14 @@ int main()
 {
   SVCXPRT *xprt_nfsd, *xprt_mountd;
 
-  rpc_mountd_unregister();
-  rpc_nfsd_unregister();
-
-  xprt_nfs = create_tcp_transport(2049);
+  xprt_nfsd = create_tcp_transport(2049);
   xprt_mountd = create_tcp_transport(2048);
 
-  rpc_nfsd_register(xprt_nfs);
+  rpc_nfsd_register(xprt_nfsd);
   rpc_mountd_register(xprt_mountd);
 
   svc_run();
+
+  rpc_mountd_unregister();
+  rpc_nfsd_unregister();
 }
