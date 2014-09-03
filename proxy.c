@@ -28,7 +28,8 @@ void proxy_mount(int s)
   CLIENT *clnt;
   char *dirname = "/bli";
   dirpath *mnt3arg = &dirname;
-  mountres3 *mnt3res;
+  mountres3 mntres;
+  mountres3 *mnt3res = &mntres;
 
   char *hostname, *mounthost = NULL;
 
@@ -49,7 +50,7 @@ void proxy_mount(int s)
   nfs_pmap->pm_vers = 3;
 
   mnt_server.saddr.sin_family = AF_INET;
-  mnt_server.saddr.sin_port = htons(54895);
+  mnt_server.saddr.sin_port = htons(41188);
   mnt_server.saddr.sin_addr.s_addr = inet_addr("10.42.2.99");
 
   {
@@ -67,8 +68,6 @@ void proxy_mount(int s)
       err(1, "connect");
   }
 
-  mountres3 mntres;
-
   {
   /* clnt = mnt_openclnt(mnt_server, &msock); */
     clnt = clnttcp_create(&mnt_server.saddr, mnt_pmap->pm_prog, mnt_pmap->pm_vers,
@@ -78,6 +77,17 @@ void proxy_mount(int s)
   if (!clnt)
     errx(1, "mnt_openclnt");
 
+
+  {
+    int uid = 0, gid = 0;
+    clnt->cl_auth = authunix_create("coucou-machine", uid, gid, 1, &gid);
+    if (!clnt->cl_auth)
+      errx(1, "authunix_create");
+  }
+
+  /* NULLify mnt3res so that xdr_array will allocate memory for us */
+  memset(mnt3res, '\0', sizeof(*mnt3res));
+
   enum clnt_stat stat = clnt_call(clnt, MOUNTPROC_MNT,
 			 (xdrproc_t) xdr_dirpath, (caddr_t) mnt3arg,
 			 (xdrproc_t) xdr_mountres3, (caddr_t) mnt3res,
@@ -85,7 +95,9 @@ void proxy_mount(int s)
   printf("%s : clnt_call MOUNTPROC_MNT RPC_SUCCESS ? -> %d\n", __func__,
 	 stat == RPC_SUCCESS ? 1 : 0);
 
-  sleep(10);
+  auth_destroy(clnt->cl_auth);
+  clnt_destroy(clnt);
+  close(s);
 }
 
 void proxy_()
