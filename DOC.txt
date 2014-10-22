@@ -15,3 +15,6 @@ https://www.google.fr/search?q=ubuntu+nfs+ganesha&client=ubuntu&channel=cs&aq=f&
 
 https://www.google.fr/search?q=sftp+proxy&client=ubuntu&channel=cs&aq=f&oq=sftp+proxy&aqs=chrome.0.57.3873&sourceid=chrome&ie=UTF-8
 http://www.unix.com/unix-and-linux-applications/219707-sftp-routing-through-proxy-server.html
+
+https://www.google.fr/search?q=nfs+proxy&client=ubuntu&channel=cs&aq=f&oq=nfs+proxy&aqs=chrome.0.57.1065&sourceid=chrome&ie=UTF-8
+https://www.google.fr/search?q=ganesha+configuration&client=ubuntu&channel=cs&aq=f&oq=ganesha+configuration&aqs=chrome.0.57.2482&sourceid=chrome&ie=UTF-8
