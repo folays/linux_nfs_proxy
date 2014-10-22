@@ -1,0 +1,17 @@
+http://www-01.ibm.com/support/knowledgecenter/ssw_ibm_i_72/apis/xdr_bytes.htm
+
+https://www.google.fr/search?q=C+rpc&client=ubuntu&channel=cs&aq=f&oq=C+rpc&aqs=chrome.0.57.1011&sourceid=chrome&ie=UTF-8
+http://stackoverflow.com/questions/2526227/c-c-rpc-tutorial-for-linux
+http://books.google.fr/books?id=PN2hcRD29JUC&dq=Power+Programming+with+RPC&redir_esc=y
+http://www.linuxjournal.com/article/2204
+http://www.cs.cf.ac.uk/Dave/C/node33.html
+http://linux.die.net/man/3/rpc
+
+https://www.google.fr/search?q=proxycommand&client=ubuntu&channel=cs&aq=f&oq=proxycommand&aqs=chrome.0.57.1425&sourceid=chrome&ie=UTF-8
+http://sshmenu.sourceforge.net/articles/transparent-mulithop.html
+https://www.google.fr/search?q=nfs+ganesh+proxy&client=ubuntu&channel=cs&aq=f&oq=nfs+ganesh+proxy&aqs=chrome.0.57.1922&sourceid=chrome&ie=UTF-8
+https://github.com/nfs-ganesha/nfs-ganesha/wiki/PROXY
+https://www.google.fr/search?q=ubuntu+nfs+ganesha&client=ubuntu&channel=cs&aq=f&oq=ubuntu+nfs+ganesha&aqs=chrome.0.57.2041&sourceid=chrome&ie=UTF-8
+
+https://www.google.fr/search?q=sftp+proxy&client=ubuntu&channel=cs&aq=f&oq=sftp+proxy&aqs=chrome.0.57.3873&sourceid=chrome&ie=UTF-8
+http://www.unix.com/unix-and-linux-applications/219707-sftp-routing-through-proxy-server.html
