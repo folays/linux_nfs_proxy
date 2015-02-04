@@ -51,7 +51,7 @@ void proxy_mount(int s)
 
   mnt_server.saddr.sin_family = AF_INET;
   mnt_server.saddr.sin_port = htons(41188);
-  mnt_server.saddr.sin_addr.s_addr = inet_addr("10.42.2.99");
+  mnt_server.saddr.sin_addr.s_addr = inet_addr(NFS_REAL_SERVER_IP_ADDRESS);
 
   {
     struct sockaddr_in sin;
